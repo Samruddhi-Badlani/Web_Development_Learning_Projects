@@ -1,10 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import NewsItem from './NewsItem'
-
-export class News extends Component {
-
-  articles =  [
+{
+  "status": "ok",
+  "totalResults": 3,
+  "articles": [
     {
       "source": { "id": null, "name": "YouTube" },
       "author": null,
@@ -35,40 +32,5 @@ export class News extends Component {
       "publishedAt": "2022-06-11T20:13:04Z",
       "content": "The Future Games Show Powered by Mana was broadcast live on June 11. Hosted by Denise Gough and Doug Cockle (Yennefer and Geralt from The Witcher 3), the Future Games Show delivered over an hour of u… [+10397 chars]"
     }
-  ];
-
-  constructor(){
-    super();
-    console.log("Constructor called from news component \n")
-    this.state ={ 
-      articles : this.articles
-    }
-   
+  ]
 }
-  static propTypes = {
-
-  }
-
-  render() {
-    return (
-      <div className='container my-3'>
-        <h2>Top Headlines</h2>
-        <div className='row'>
-          {this.state.articles.map((element)=>{
-
-            return (
-              <div key={element.url} className='col-md-4'> <NewsItem  title={element.title} desc={element.description} imageUrl={element.urlToImage} newsUrl={element.url} /></div>
-            )
-          })}
-         
-         
-        </div>
-       
-       
-
-      </div>
-    )
-  }
-}
-
-export default News

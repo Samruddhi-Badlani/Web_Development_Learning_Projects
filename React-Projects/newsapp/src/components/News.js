@@ -35,7 +35,7 @@ export class News extends Component {
 
   async componentDidMount() {
     console.log("cdm component mounted now !!");
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5ed23fc0cea44cd888c9eb4e2b663b00&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=616383baa5494685b64ad37f4ce010ad&pageSize=${this.props.pageSize}`;
     this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -60,7 +60,7 @@ export class News extends Component {
       }
     )
     console.log("Next clicked")
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5ed23fc0cea44cd888c9eb4e2b663b00&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=616383baa5494685b64ad37f4ce010ad&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -85,7 +85,7 @@ export class News extends Component {
       }
     )
     console.log("Next clicked")
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5ed23fc0cea44cd888c9eb4e2b663b00&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=616383baa5494685b64ad37f4ce010ad&page=${this.state.page}&pageSize=${this.props.pageSize}`;
 
     this.setState({
       loading : true
@@ -113,7 +113,7 @@ export class News extends Component {
           {this.state.articles.map((element)=>{
 
             return (
-              <div key={element.url} className='col-md-4'> <NewsItem  title={element.title?element.title.slice(0,45):""} desc={element.description?element.description.slice(0,88):""} imageUrl={element.urlToImage} newsUrl={element.url} /></div>
+              <div key={element.url} className='col-md-4'> <NewsItem  title={element.title?element.title.slice(0,45):""} desc={element.description?element.description.slice(0,88):""} imageUrl={element.urlToImage} newsUrl={element.url} author = {element.author?element.author:"Unknown"} date={element.publishedAt?element.publishedAt:"Unknown"}  source = {element.source.name}/></div>
             )
           })}
          

@@ -4,38 +4,7 @@ import NewsItem from './NewsItem'
 
 export class News extends Component {
 
-  articles =  [
-    {
-      "source": { "id": null, "name": "YouTube" },
-      "author": null,
-      "title": "NHL Game 6 Highlights | Rangers vs. Lightning - June 11, 2022 - SPORTSNET",
-      "description": "Steven Stamkos scored both of Tampa Bay Lightning's goals while Andrei Vasilevskiy saved 20 shots as the Lightning punched their ticket to their third straig...",
-      "url": "https://www.youtube.com/watch?v=llrUiQ5uffY",
-      "urlToImage": "https://i.ytimg.com/vi/llrUiQ5uffY/hqdefault.jpg",
-      "publishedAt": "2022-06-12T03:18:06Z",
-      "content": null
-    },
-    {
-      "source": { "id": null, "name": "NBCSports.com" },
-      "author": null,
-      "title": "Watch Steph Curry's Game 4 dagger absolutely silence Celtics fans - NBC Sports",
-      "description": "Steph Curry's final triple of the game sealed the deal, and Boston fans knew.",
-      "url": "https://www.nbcsports.com/bayarea/warriors/watch-steph-currys-game-4-dagger-absolutely-silence-celtics-fans",
-      "urlToImage": "https://www.nbcsports.com/sites/rsnunited/files/styles/metatags_opengraph/public/article/hero/steph-curry-game-4-performance-GETTY.jpg",
-      "publishedAt": "2022-06-12T01:28:10Z",
-      "content": "Steph Curry didnt physically do his signature night night celebration after hitting his seventh triple of the night toward the end of the fourth quarter of Game 4, but Boston Celtics fans at TD Garde… [+1039 chars]"
-    },
-    {
-      "source": { "id": null, "name": "GamesRadar+" },
-      "author": "Jordan Oloman",
-      "title": "Everything Announced at the Future Games Show Powered by Mana - Gamesradar",
-      "description": "Here’s every announcement from the Summer 2022 Future Games Show powered by Mana",
-      "url": "https://www.gamesradar.com/everything-announced-future-games-show-summer-2022/",
-      "urlToImage": "https://cdn.mos.cms.futurecdn.net/NFdt4j8PzVU6JRfDErRHxH-1200-80.jpg",
-      "publishedAt": "2022-06-11T20:13:04Z",
-      "content": "The Future Games Show Powered by Mana was broadcast live on June 11. Hosted by Denise Gough and Doug Cockle (Yennefer and Geralt from The Witcher 3), the Future Games Show delivered over an hour of u… [+10397 chars]"
-    }
-  ];
+  articles =  [];
 
   constructor(){
     super();
@@ -49,15 +18,30 @@ export class News extends Component {
 
   }
 
+  async componentDidMount() {
+    console.log("cdm");
+    let url = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=5ed23fc0cea44cd888c9eb4e2b663b00";
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    console.log(parsedData)
+    this.setState(
+      {
+        articles : parsedData.articles
+      }
+    )
+
+  }
+
   render() {
+    console.log("render called ");
     return (
       <div className='container my-3'>
-        <h2>Top Headlines</h2>
+        <h1>Top Headlines</h1>
         <div className='row'>
           {this.state.articles.map((element)=>{
 
             return (
-              <div key={element.url} className='col-md-4'> <NewsItem  title={element.title} desc={element.description} imageUrl={element.urlToImage} newsUrl={element.url} /></div>
+              <div key={element.url} className='col-md-4'> <NewsItem  title={element.title?element.title.slice(0,45):""} desc={element.description?element.description.slice(0,88):""} imageUrl={element.urlToImage} newsUrl={element.url} /></div>
             )
           })}
          

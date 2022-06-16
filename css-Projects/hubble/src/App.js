@@ -2,6 +2,9 @@ import { Container } from "./components/styles/Container.styled";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import GlobalStyles from "./components/styles/Global";
+import content from "./content";
+import Card from "./components/Card";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -11,7 +14,7 @@ function App() {
       body : "#fff",
       footer : "#003333"
     },
-    mobile:'768px'
+    mobile:'900px'
   }
   return (
     <ThemeProvider theme={theme}>
@@ -19,8 +22,13 @@ function App() {
      <GlobalStyles />
       <Header />
       <Container>
-        <h1>Hello </h1>
+
+        {content.map((item) => {
+          return (<Card key = {item.id} id={item.id} title={item.title} body={item.body} image={item.image} />)
+        })}
+        
       </Container>
+      <Footer />
     </>
     </ThemeProvider>
   );

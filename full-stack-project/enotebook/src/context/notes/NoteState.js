@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const NoteState = (props) =>{
 
-    const notes  = [
+    const notesInitial  = [
         {
           "_id": "62b3690e765ffba9bd2d0d21",
           "user": "62b3689e765ffba9bd2d0d1d",
@@ -40,14 +40,16 @@ const NoteState = (props) =>{
           "date": "2022-06-24T06:47:44.175Z",
           "__v": 0
         }
-      ]
+      ];
+
+      const [notes,setNotes] = useState(notesInitial);
 
 
    
 
     return (
         
-        <NoteContext.Provider>
+        <NoteContext.Provider value={{notes,setNotes}}>
             {props.children}
         </NoteContext.Provider>
         

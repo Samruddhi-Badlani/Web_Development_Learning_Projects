@@ -23,7 +23,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            Enotebook
+            iNotebook
           </Link>
           <button
             className="navbar-toggler"
@@ -62,20 +62,7 @@ const Navbar = () => {
             </ul>
             {!localStorage.getItem("token") ? (
               <form className="d-flex" role="search">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-
-                  /*
-                                // set the value of our useState q
-                                //  anytime the user types in the search box
-                                */
-                />
-                <button className="btn btn-outline-success" type="submit">
-                  Search
-                </button>
+              
 
                 <Link to="/login" className="btn btn-primary mx-1">
                   {" "}

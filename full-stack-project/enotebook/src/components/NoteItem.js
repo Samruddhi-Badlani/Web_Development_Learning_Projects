@@ -1,8 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import NoteContext from "../context/notes/noteContext";
+import { useContext } from "react";
 
 const NoteItem = (props) => {
-  const { title, description, date } = props.note;
+  const { title, description,_id } = props.note;
+  const {updateNote} = props;
+
+  const context = useContext(NoteContext);
+  const {deleteNote} = context;
+  const handleDelete = (_id) =>{
+
+    deleteNote(_id);
+
+  }
 
   return (
     <div className="col-md-4">
@@ -16,8 +26,8 @@ const NoteItem = (props) => {
            {description}
           </p>
        
-          <i className="fa fa-trash mx-2" aria-hidden="true"></i>
-          <i className="fa fa-pencil-square-o mx-2" aria-hidden="true"></i>
+          <i className="fa fa-trash mx-2" aria-hidden="true" onClick={()=>handleDelete(_id)}></i>
+          <i className="fa fa-pencil-square-o mx-2" aria-hidden="true" onClick={() =>{updateNote(props.note)}}></i>
         </div>
       </div>
     </div>

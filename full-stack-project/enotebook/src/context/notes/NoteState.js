@@ -13,7 +13,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMzY4OWU3NjVmZmJhOWJkMmQwZDFkIn0sImlhdCI6MTY1NTkyNDkxN30.hzZv0i2cYhiwTQtaBSt8iUcXLOjEwXUH8kj8jwjNurY"
+        "auth-token" : localStorage.getItem('token')
       },
      
     });
@@ -36,7 +36,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMzY4OWU3NjVmZmJhOWJkMmQwZDFkIn0sImlhdCI6MTY1NTkyNDkxN30.hzZv0i2cYhiwTQtaBSt8iUcXLOjEwXUH8kj8jwjNurY"
+        "auth-token" : localStorage.getItem('token')
       },
       body: JSON.stringify({title,description,tag})
     });
@@ -65,7 +65,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMzY4OWU3NjVmZmJhOWJkMmQwZDFkIn0sImlhdCI6MTY1NTkyNDkxN30.hzZv0i2cYhiwTQtaBSt8iUcXLOjEwXUH8kj8jwjNurY"
+        "auth-token" : localStorage.getItem('token')
       },
      
     });
@@ -74,10 +74,7 @@ const NoteState = (props) => {
 
 
     console.log("Deleting note with id ", _id);
-    const newNotes = notes.filter((note) => {
-      return note._id !== _id;
-    });
-    setNotes(newNotes);
+    getAllNotes();
   };
 
   // Edit a node
@@ -89,24 +86,14 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMzY4OWU3NjVmZmJhOWJkMmQwZDFkIn0sImlhdCI6MTY1NTkyNDkxN30.hzZv0i2cYhiwTQtaBSt8iUcXLOjEwXUH8kj8jwjNurY"
+        "auth-token" : localStorage.getItem('token')
       },
       body : JSON.stringify({title,description,tag})
     });
 
     const json =  await response.json();
     console.log(json);
-    const newNotes = notes.map((note) => {
-      if (note._id === _id) {
-        note.title = title;
-        note.description = description;
-        note.tag = tag;
-        return note;
-      } else {
-        return note;
-      }
-    });
-    setNotes(newNotes);
+    getAllNotes();
   };
 
   return (

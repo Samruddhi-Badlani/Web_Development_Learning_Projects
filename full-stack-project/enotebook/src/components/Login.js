@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = () => {
+const Login = (props) => {
 
     const [creds, setCreds] = useState({email:"",password:""});
 
@@ -34,16 +34,22 @@ const Login = () => {
           if(json.success){
 
             localStorage.setItem('token',json.authToken);
+            props.showAlert(`Successfully Logged In`,'success');
             history('/');
 
           }
           else{
-            alert(json.error)
+            props.showAlert(`Invalid Credentials ${json.error}`,'danger');
+
           }
 
     }
   return (
     <div>
+      <div className="mt-2 my-2">
+        <h2>Login to use your enotebook </h2>
+
+     
       <form  onSubmit={handleSubmit}>
   <div className="mb-3">
     <label htmlFor="email" className="form-label">Email address</label>
@@ -57,6 +63,7 @@ const Login = () => {
  
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
+</div>
       
     </div>
   )

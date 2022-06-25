@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     const [creds, setCreds] = useState({email:"",password:"",cpassword:"",name:""}); 
     const onChange = (e)=> {
@@ -16,6 +16,12 @@ const SignUp = () => {
         e.preventDefault();
 
         const {name,email,password,cpassword} = creds ;
+
+        if(password !== cpassword){
+            props.showAlert(`Passwords do not match`,'danger');
+            return 
+
+        }
         e.preventDefault();
         let url = `http://localhost:5000/api/auth/createuser`;
         const response = await fetch(url, {
@@ -32,16 +38,20 @@ const SignUp = () => {
           if(json.success){
 
             localStorage.setItem('token',json.authToken);
+            props.showAlert(`Successfully Created Account`,'success');
             history('/');
+            
 
           }
           else{
-            alert(json.error)
+            props.showAlert(`Invalid Credentials ${json.error}`,'danger');
           }
 
     }
   return (
     <div>
+      <div className="mt-2 my-2">
+        <h2>Create an account </h2>
      <form onSubmit={handleSubmit}>
      <div className="mb-3">
     <label htmlFor="name" className="form-label">Name</label>
@@ -63,6 +73,7 @@ const SignUp = () => {
 
   <button type="submit" className="btn btn-primary">Sign Up</button>
 </form>
+</div>
     </div>
   )
 }

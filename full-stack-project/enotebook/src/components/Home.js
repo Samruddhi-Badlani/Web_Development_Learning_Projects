@@ -1,9 +1,9 @@
 import React from "react";
-import AddNote from "./AddNote";
+
 import Notes from "./Notes";
 
 
-const Home = () => {
+const Home = (props) => {
 
 
 
@@ -11,7 +11,7 @@ const Home = () => {
     <div>
       
       
-      <Notes />
+      <Notes showAlert={props.showAlert} />
 
      
     

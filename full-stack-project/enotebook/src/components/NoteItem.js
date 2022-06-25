@@ -26,7 +26,8 @@ const NoteItem = (props) => {
            {description}
           </p>
        
-          <i className="fa fa-trash mx-2" aria-hidden="true" onClick={()=>handleDelete(_id)}></i>
+          <i className="fa fa-trash mx-2" aria-hidden="true" onClick={()=>{handleDelete(_id);
+          props.showAlert(`Note Deleted Successfully`,'success');}}></i>
           <i className="fa fa-pencil-square-o mx-2" aria-hidden="true" onClick={() =>{updateNote(props.note)}}></i>
         </div>
       </div>

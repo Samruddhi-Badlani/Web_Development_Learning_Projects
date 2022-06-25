@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
-import NoteContext from "../context/notes/noteContext";
+import { useEffect } from "react";
+import {useNavigate} from "react-router-dom"
+
 const Navbar = () => {
-  const context = useContext(NoteContext);
-  const { notes } = context;
-  const [q, setQ] = useState("");
-  const [searchParam, setSearchParam] = useState(["title", "description"]);
   let location = useLocation();
+  let history = useNavigate();
+
+  const handleClick = ()=>{
+    localStorage.removeItem('token');
+    history('/login');
+
+  }
 
   useEffect(() => {
     console.log(location.pathname);
@@ -56,31 +60,35 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                value={q}
-                /*
+            {!localStorage.getItem("token") ? (
+              <form className="d-flex" role="search">
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+
+                  /*
                                 // set the value of our useState q
                                 //  anytime the user types in the search box
                                 */
-                onChange={(e) => setQ(e.target.value)}
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-            <Link to="/login" className="btn btn-primary mx-1">
-              {" "}
-              Login
-            </Link>
-            <Link to="signup" className="btn btn-primary mx-1">
-              {" "}
-              SignUp
-            </Link>
+                />
+                <button className="btn btn-outline-success" type="submit">
+                  Search
+                </button>
+
+                <Link to="/login" className="btn btn-primary mx-1">
+                  {" "}
+                  Login
+                </Link>
+                <Link to="signup" className="btn btn-primary mx-1">
+                  {" "}
+                  SignUp
+                </Link>
+              </form>
+            ) : (
+              <button onClick={handleClick} className="btn btn-primary">Logout</button>
+            )}
           </div>
         </div>
       </nav>
